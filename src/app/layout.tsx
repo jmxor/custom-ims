@@ -1,3 +1,4 @@
+import Header from '@/components/Header';
 import theme from '@/theme';
 import {CssBaseline, ThemeProvider} from '@mui/material';
 import {AppRouterCacheProvider} from '@mui/material-nextjs/v13-appRouter';
@@ -16,6 +17,7 @@ export default function RootLayout({children}: { children: React.ReactNode; }) {
     <AppRouterCacheProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline/>
+        <Header/>
         {children}
       </ThemeProvider>
     </AppRouterCacheProvider>
