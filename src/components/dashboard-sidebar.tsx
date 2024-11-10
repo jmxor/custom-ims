@@ -1,12 +1,29 @@
+'use client';
+
 import {
   Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { Gauge, LayoutGrid } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const menuItems = [
+  { label: 'Analytics', url: '/dashboard/analytics', icon: Gauge },
+  { label: 'Inventory', url: 'dashboard/inventory', icon: LayoutGrid },
+  { label: 'Listings', url: '/dashboard/listings', icon: LayoutGrid },
+];
 
 export default function DashboardSidebar() {
+  const currentPathname = usePathname();
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -26,6 +43,27 @@ export default function DashboardSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {menuItems.map(item => (
+                <SidebarMenuItem key={item.label}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={currentPathname.startsWith(item.url)}>
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span>{item.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
     </Sidebar>
   );
 }
